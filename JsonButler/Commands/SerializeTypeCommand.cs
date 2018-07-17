@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 
 
-namespace Andeart.JsonButler
+namespace Andeart.JsonButler.Commands
 {
 
     /// <summary>
@@ -87,8 +87,8 @@ namespace Andeart.JsonButler
         /// <param name="e">Event args.</param>
         private void Execute (object sender, EventArgs e)
         {
-            TextSelection textSelection = GetCurrentTextSelection ();
-            CodeElement codeElement = GetCodeElement (textSelection);
+            TextSelection textSelection = GetCurrentTextElement ();
+            CodeElement codeElement = EditorUtilities.GetCodeElement (textSelection);
             if (codeElement == null)
             {
                 return;
@@ -112,26 +112,10 @@ namespace Andeart.JsonButler
         /// <summary>
         /// Returns the text-selection under the text-caret, or where the right-click context menu was invoked.
         /// </summary>
-        private TextSelection GetCurrentTextSelection ()
+        private TextSelection GetCurrentTextElement ()
         {
             JsonButlerPackage mainPackage = _package as JsonButlerPackage;
             return mainPackage?.Dte.ActiveDocument.Selection as TextSelection;
-        }
-
-        /// <summary>
-        /// Gets the code element at the point of the text-selection.
-        /// </summary>
-        /// <param name="textSelection">The text-selection.</param>
-        private static CodeElement GetCodeElement (TextSelection textSelection)
-        {
-            CodeElement codeElement = textSelection?.ActivePoint.CodeElement[vsCMElement.vsCMElementClass];
-            if (codeElement != null)
-            {
-                return codeElement;
-            }
-
-            codeElement = textSelection?.ActivePoint.CodeElement[vsCMElement.vsCMElementStruct];
-            return codeElement;
         }
 
         private ITypeResolutionService GetResolutionService (Project currentProject)

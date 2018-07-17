@@ -63,7 +63,13 @@
           If you do not want an image next to your command, remove the Icon node /> -->
             <Button guid="guidJsonButlerPackageCmdSet" id="SerializeTypeCommandId" priority="0x0100" type="Button">
                 <Strings>
-                    <ButtonText>Serialize Type To JSON</ButtonText>
+                    <ButtonText>Serialize Type to JSON</ButtonText>
+                </Strings>
+            </Button>
+            <Button guid="guidJsonButlerPackageCmdSet" id="cmdidCreateTypeFromJsonCommand" priority="0x0100"
+                    type="Button">
+                <Strings>
+                    <ButtonText>Create C# Type from JSON snippet</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
@@ -94,6 +100,9 @@
         <CommandPlacement guid="guidJsonButlerPackageCmdSet" id="SerializeTypeCommandId" priority="0x0001">
             <Parent guid="guidJsonButlerPackageCmdSet" id="EditorContextCommandsGroup" />
         </CommandPlacement>
+        <CommandPlacement guid="guidJsonButlerPackageCmdSet" id="cmdidCreateTypeFromJsonCommand" priority="0x0001">
+            <Parent guid="guidJsonButlerPackageCmdSet" id="EditorContextCommandsGroup" />
+        </CommandPlacement>
     </CommandPlacements>
 
     <Symbols>
@@ -106,6 +115,7 @@
             <IDSymbol name="EditorContextCommandsGroup" value="0x1021" />
             <IDSymbol name="EditorContextMenu" value="0x1022" />
             <IDSymbol name="SerializeTypeCommandId" value="0x0100" />
+            <IDSymbol name="cmdidCreateTypeFromJsonCommand" value="0x0101" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>
