@@ -54,11 +54,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateTypeFromJsonCommand.cs" />
     <Compile Include="DteInitializer.cs" />
     <Compile Include="DteInitializerFactory.cs" />
     <Compile Include="JsonButlerPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializeTypeCommand.cs" />
+    <Compile Include="Commands\SerializeTypeCommand.cs" />
+    <Compile Include="Utilities\EditorUtilities.cs" />
     <Compile Include="Utilities\ReflectionUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +75,7 @@
     <VSCTCompile Include="JsonButlerPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+    <Content Include="Resources\CreateTypeFromJsonCommand.png" />
     <Content Include="Resources\JsonButlerPackage.ico" />
     <Content Include="Resources\SerializeTypeCommand.png" />
     <Content Include="stylesheet.css" />

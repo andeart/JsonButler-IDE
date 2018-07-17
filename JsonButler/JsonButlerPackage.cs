@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Andeart.JsonButler.Commands;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -36,6 +37,7 @@ namespace Andeart.JsonButler
     [ProvideAutoLoad (VSConstants.UICONTEXT.NoSolution_string)]
     [ProvideAutoLoad (VSConstants.UICONTEXT.SolutionExists_string)]
     [ProvideMenuResource ("Menus.ctmenu", 1)]
+    [ProvideMenuResource ("Menus.ctmenu", 1)]
     public sealed class JsonButlerPackage : AsyncPackage
     {
         /// <summary>
@@ -64,6 +66,7 @@ namespace Andeart.JsonButler
             await JoinableTaskFactory.SwitchToMainThreadAsync (cancellationToken);
             DteInitializerFactory.Initialize (this, OnDteInitialized);
             SerializeTypeCommand.Initialize (this);
+            CreateTypeFromJsonCommand.Initialize (this);
         }
 
         private void OnDteInitialized (DTE2 dte)
