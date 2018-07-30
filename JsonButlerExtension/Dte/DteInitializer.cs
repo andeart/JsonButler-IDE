@@ -1,19 +1,17 @@
 ﻿using System;
-using EnvDTE80;
 using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 
 
-namespace Andeart.JsonButler
+namespace Andeart.JsonButlerIde.Dte
 {
 
     internal class DteInitializer : IVsShellPropertyEvents
     {
-        private IVsShell _shellService;
+        private readonly IVsShell _shellService;
         private uint _cookie;
-        private Action _callback;
+        private readonly Action _callback;
 
         public DteInitializer (IVsShell shellService, Action callback)
         {
