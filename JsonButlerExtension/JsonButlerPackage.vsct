@@ -38,12 +38,12 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
         <Groups>
-            <Group guid="guidJsonButlerPackageCmdSet" id="EditorContextMenuGroup" priority="0x0600" />
-            <Group guid="guidJsonButlerPackageCmdSet" id="EditorContextCommandsGroup" priority="0x0600" />
+            <Group guid="guidJsonButlerPackage" id="EditorContextMenuGroup" priority="0x0600" />
+            <Group guid="guidJsonButlerPackage" id="EditorContextCommandsGroup" priority="0x0600" />
         </Groups>
 
         <Menus>
-            <Menu guid="guidJsonButlerPackageCmdSet" id="EditorContextMenu" type="Menu">
+            <Menu guid="guidJsonButlerPackage" id="EditorContextMenu" type="Menu">
                 <Strings>
                     <ButtonText>JsonButler</ButtonText>
                 </Strings>
@@ -66,7 +66,7 @@
                     <ButtonText>Serialize Type to JSON</ButtonText>
                 </Strings>
             </Button>
-            <Button guid="guidJsonButlerPackageCmdSet" id="cmdidCreateTypeFromJsonCommand" priority="0x0100"
+            <Button guid="guidJsonButlerPackageCmdSet2" id="CreateTypeFromJsonCommandId" priority="0x0100"
                     type="Button">
                 <Strings>
                     <ButtonText>Create C# Type from JSON snippet</ButtonText>
@@ -88,34 +88,38 @@
     </Commands>
 
     <CommandPlacements>
-        <CommandPlacement guid="guidJsonButlerPackageCmdSet" id="EditorContextMenuGroup" priority="0xFFFF">
+        <CommandPlacement guid="guidJsonButlerPackage" id="EditorContextMenuGroup" priority="0xFFFF">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
         </CommandPlacement>
-        <CommandPlacement guid="guidJsonButlerPackageCmdSet" id="EditorContextMenu" priority="0x0001">
-            <Parent guid="guidJsonButlerPackageCmdSet" id="EditorContextMenuGroup" />
+        <CommandPlacement guid="guidJsonButlerPackage" id="EditorContextMenu" priority="0x0001">
+            <Parent guid="guidJsonButlerPackage" id="EditorContextMenuGroup" />
         </CommandPlacement>
-        <CommandPlacement guid="guidJsonButlerPackageCmdSet" id="EditorContextCommandsGroup" priority="0x0001">
-            <Parent guid="guidJsonButlerPackageCmdSet" id="EditorContextMenu" />
+        <CommandPlacement guid="guidJsonButlerPackage" id="EditorContextCommandsGroup" priority="0x0001">
+            <Parent guid="guidJsonButlerPackage" id="EditorContextMenu" />
         </CommandPlacement>
         <CommandPlacement guid="guidJsonButlerPackageCmdSet" id="SerializeTypeCommandId" priority="0x0001">
-            <Parent guid="guidJsonButlerPackageCmdSet" id="EditorContextCommandsGroup" />
+            <Parent guid="guidJsonButlerPackage" id="EditorContextCommandsGroup" />
         </CommandPlacement>
-        <CommandPlacement guid="guidJsonButlerPackageCmdSet" id="cmdidCreateTypeFromJsonCommand" priority="0x0001">
-            <Parent guid="guidJsonButlerPackageCmdSet" id="EditorContextCommandsGroup" />
+        <CommandPlacement guid="guidJsonButlerPackageCmdSet2" id="CreateTypeFromJsonCommandId" priority="0x0001">
+            <Parent guid="guidJsonButlerPackage" id="EditorContextCommandsGroup" />
         </CommandPlacement>
     </CommandPlacements>
 
     <Symbols>
         <!-- This is the package guid. -->
-        <GuidSymbol name="guidJsonButlerPackage" value="{da100736-e105-47b2-bf07-97f9d16179aa}" />
-
-        <!-- This is the guid used to group the menu commands together -->
-        <GuidSymbol name="guidJsonButlerPackageCmdSet" value="{dd6fa331-344e-4e45-a8e7-6c6ceb15dcd0}">
+        <GuidSymbol name="guidJsonButlerPackage" value="{da100736-e105-47b2-bf07-97f9d16179aa}">
             <IDSymbol name="EditorContextMenuGroup" value="0x1020" />
             <IDSymbol name="EditorContextCommandsGroup" value="0x1021" />
             <IDSymbol name="EditorContextMenu" value="0x1022" />
+        </GuidSymbol>
+
+        <!-- This is the guid used to group the menu commands together -->
+        <GuidSymbol name="guidJsonButlerPackageCmdSet" value="{dd6fa331-344e-4e45-a8e7-6c6ceb15dcd0}">
             <IDSymbol name="SerializeTypeCommandId" value="0x0100" />
-            <IDSymbol name="cmdidCreateTypeFromJsonCommand" value="0x0101" />
+        </GuidSymbol>
+
+        <GuidSymbol name="guidJsonButlerPackageCmdSet2" value="{4715daff-4455-4fe1-a981-6642fed9f39c}">
+            <IDSymbol name="CreateTypeFromJsonCommandId" value="0x0101" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>
