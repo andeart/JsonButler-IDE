@@ -2,16 +2,16 @@
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Andeart.JsonButler.Utilities;
+using Andeart.JsonButler.CodeSerialization;
+using Andeart.JsonButlerIde.Utilities;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Design;
 using Microsoft.VisualStudio.Shell.Interop;
-using Newtonsoft.Json;
 
 
 
-namespace Andeart.JsonButler.Commands
+namespace Andeart.JsonButlerIde.Commands
 {
 
     /// <summary>
@@ -35,6 +35,16 @@ namespace Andeart.JsonButler.Commands
         private readonly Package _package;
 
         /// <summary>
+        /// Gets the instance of the command.
+        /// </summary>
+        public static SerializeTypeCommand Instance { get; private set; }
+
+        /// <summary>
+        /// Gets the service provider from the owner package.
+        /// </summary>
+        private IServiceProvider ServiceProvider => _package;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SerializeTypeCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
@@ -56,16 +66,6 @@ namespace Andeart.JsonButler.Commands
         }
 
         /// <summary>
-        /// Gets the instance of the command.
-        /// </summary>
-        public static SerializeTypeCommand Instance { get; private set; }
-
-        /// <summary>
-        /// Gets the service provider from the owner package.
-        /// </summary>
-        private IServiceProvider ServiceProvider => _package;
-
-        /// <summary>
         /// Initializes the singleton instance of the command.
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
@@ -84,8 +84,8 @@ namespace Andeart.JsonButler.Commands
         /// OleMenuCommandService service and MenuCommand class.
         /// </summary>
         /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event args.</param>
-        private void Execute (object sender, EventArgs e)
+        /// <param name="args">Event args.</param>
+        private void Execute (object sender, EventArgs args)
         {
             TextSelection textSelection = GetCurrentTextElement ();
             CodeElement codeElement = EditorUtilities.GetCodeElement (textSelection);
@@ -96,13 +96,8 @@ namespace Andeart.JsonButler.Commands
 
             ITypeResolutionService resolutionService = GetResolutionService (codeElement.ProjectItem.ContainingProject);
             Type type = resolutionService.GetType (codeElement.FullName);
-            object instance = ReflectionUtilities.CreateObjectWithBestConstructor<JsonConstructorAttribute> (type, type.Assembly);
-
-            JsonSerializerSettings serializerSettings = new JsonSerializerSettings ();
-            serializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            serializerSettings.Formatting = Formatting.Indented;
-            string instanceSerialized = JsonConvert.SerializeObject (instance, serializerSettings);
-            Clipboard.SetText (instanceSerialized);
+            string serialized = ButlerSerializer.SerializeType (type);
+            Clipboard.SetText (serialized);
             Console.WriteLine ($"JsonButler: Serialized text from {type.FullName} copied.");
         }
 

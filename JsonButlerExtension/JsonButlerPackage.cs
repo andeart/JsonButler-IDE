@@ -2,7 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Andeart.JsonButler.Commands;
+using Andeart.JsonButlerIde.Commands;
+using Andeart.JsonButlerIde.Dte;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -10,7 +11,7 @@ using Task = System.Threading.Tasks.Task;
 
 
 
-namespace Andeart.JsonButler
+namespace Andeart.JsonButlerIde
 {
 
     /// <summary>
@@ -44,8 +45,6 @@ namespace Andeart.JsonButler
         /// JsonButlerPackage GUID string.
         /// </summary>
         public const string PackageGuidString = "da100736-e105-47b2-bf07-97f9d16179aa";
-
-        private DteInitializer _dteInitializer;
 
         public DTE2 Dte { get; private set; }
 

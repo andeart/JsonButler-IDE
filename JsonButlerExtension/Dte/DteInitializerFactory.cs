@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 
 
-namespace Andeart.JsonButler
+namespace Andeart.JsonButlerIde.Dte
 {
 
     internal class DteInitializerFactory
@@ -19,7 +19,7 @@ namespace Andeart.JsonButler
 
         public static void Initialize (Package package, Action<DTE2> OnDteInitialized)
         {
-            _package = package ?? throw new ArgumentNullException(nameof(package));
+            _package = package ?? throw new ArgumentNullException (nameof(package));
             _onDteInitialized = OnDteInitialized;
             Initialize ();
         }
