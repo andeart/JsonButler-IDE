@@ -103,7 +103,8 @@ namespace Andeart.JsonButlerIde.Commands
 
             string generated = bCode.Generate ();
             Clipboard.SetText (generated);
-            MessageBox.Show ("Generated code contents copied to clipboard.", "JsonButler - Generate Type", MessageBoxButtons.OK, MessageBoxIcon.None);
+            AlertWindow alertWindow = new AlertWindow ();
+            alertWindow.ShowDialogWithMessage ("Generated code contents copied to clipboard.");
         }
     }
 
