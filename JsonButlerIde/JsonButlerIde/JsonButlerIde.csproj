@@ -58,9 +58,13 @@
     <Compile Include="Commands\SerializeTypeCommand.cs" />
     <Compile Include="Dte\DteInitializer.cs" />
     <Compile Include="Dte\DteInitializerFactory.cs" />
-    <Compile Include="Forms\GenerateTypeWindow.cs">
+    <Compile Include="Forms\AlertWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\AlertWindow.Designer.cs">
+      <DependentUpon>AlertWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GenerateTypeWindow.cs" />
     <Compile Include="Forms\GenerateTypeWindow.Designer.cs">
       <DependentUpon>GenerateTypeWindow.cs</DependentUpon>
     </Compile>
@@ -184,6 +188,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\AlertWindow.resx">
+      <DependentUpon>AlertWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
