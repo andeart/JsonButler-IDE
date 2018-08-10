@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using System.Windows.Forms;
 using Andeart.JsonButler.CodeSerialization;
+using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Utilities;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
@@ -102,7 +103,9 @@ namespace Andeart.JsonButlerIde.Commands
             Type type = resolutionService.GetType (codeElement.FullName);
             string serialized = ButlerSerializer.SerializeType (type);
             Clipboard.SetText (serialized);
-            MessageBox.Show ("Serialized JSON contents copied to clipboard.", "JsonButler - Serialize Type", MessageBoxButtons.OK, MessageBoxIcon.None);
+
+            AlertWindow alertWindow = new AlertWindow ();
+            alertWindow.ShowDialogWithMessage ("Serialized JSON contents copied to clipboard.");
         }
 
 
