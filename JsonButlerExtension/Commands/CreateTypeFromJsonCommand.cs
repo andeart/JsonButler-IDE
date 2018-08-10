@@ -1,11 +1,15 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
+using Andeart.JsonButler.CodeGeneration.Core;
+using Andeart.JsonButlerIde.Dialogs;
+using Andeart.JsonButlerIde.Utilities;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.TextManager.Interop;
 
 
 
-namespace Andeart.JsonButler.Commands
+namespace Andeart.JsonButlerIde.Commands
 {
 
     /// <summary>
@@ -29,6 +33,16 @@ namespace Andeart.JsonButler.Commands
         private readonly Package _package;
 
         /// <summary>
+        /// Gets the instance of the command.
+        /// </summary>
+        public static CreateTypeFromJsonCommand Instance { get; private set; }
+
+        /// <summary>
+        /// Gets the service provider from the owner package.
+        /// </summary>
+        private IServiceProvider ServiceProvider => _package;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CreateTypeFromJsonCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
@@ -49,16 +63,6 @@ namespace Andeart.JsonButler.Commands
         }
 
         /// <summary>
-        /// Gets the instance of the command.
-        /// </summary>
-        public static CreateTypeFromJsonCommand Instance { get; private set; }
-
-        /// <summary>
-        /// Gets the service provider from the owner package.
-        /// </summary>
-        private IServiceProvider ServiceProvider => _package;
-
-        /// <summary>
         /// Initializes the singleton instance of the command.
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
@@ -77,14 +81,34 @@ namespace Andeart.JsonButler.Commands
         /// OleMenuCommandService service and MenuCommand class.
         /// </summary>
         /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event args.</param>
-        private void Execute (object sender, EventArgs e)
+        /// <param name="args">Event args.</param>
+        private void Execute (object sender, EventArgs args)
         {
-            DialogResult result = MessageBox.Show ("Feature coming soon!", "Convert text-snippet to C# type.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // TODO: Force build solution first.
+            //Dte.ExecuteCommand("Debug.Build");
+            // JsonButlerPackage mainPackage = _package as JsonButlerPackage;
+            // mainPackage?.Dte.Solution.SolutionBuild.Build(true);
 
-            // object service = ServiceProvider.GetService (typeof(SVsTextManager));
-            // IVsTextManager2 textManager = service as IVsTextManager2;
-            // string highlightedText = EditorUtilities.GetHighlightedText (textManager);
+
+            object service = ServiceProvider.GetService (typeof(SVsTextManager));
+            IVsTextManager2 textManager = service as IVsTextManager2;
+            string highlightedText = EditorUtilities.GetHighlightedText (textManager);
+
+            GenerateTypeWindow generateTypeWindow = new GenerateTypeWindow ();
+            DialogResult result = generateTypeWindow.ShowDialog ();
+
+            if (result != DialogResult.OK)
+            {
+                return;
+            }
+
+            ButlerCode bCode = ButlerCodeFactory.Create ();
+            bCode.Namespace = generateTypeWindow.TypeNamespace;
+            bCode.ClassName = generateTypeWindow.TypeName;
+            bCode.SourceJson = highlightedText;
+
+            string generated = bCode.Generate ();
+            Clipboard.SetText (generated);
         }
     }
 
