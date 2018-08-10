@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.Windows.Forms;
 using Andeart.JsonButler.CodeSerialization;
+using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Utilities;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
@@ -27,7 +27,7 @@ namespace Andeart.JsonButlerIde.Commands
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
-        public static readonly Guid CommandSet = new Guid ("dd6fa331-344e-4e45-a8e7-6c6ceb15dcd0");
+        public static readonly Guid CommandSet = new Guid ("21aaa842-876e-414f-9e9d-b81fb8d21749");
 
         /// <summary>
         /// VS Package that provides this command, not null.
@@ -49,13 +49,11 @@ namespace Andeart.JsonButlerIde.Commands
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        /// <param name="commandService">Command service to add command to, not null.</param>
         private SerializeTypeCommand (Package package)
         {
             _package = package ?? throw new ArgumentNullException (nameof(package));
 
-            OleMenuCommandService commandService = ServiceProvider.GetService (typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService == null)
+            if (!(ServiceProvider.GetService (typeof(IMenuCommandService)) is OleMenuCommandService commandService))
             {
                 throw new ArgumentNullException (nameof(commandService));
             }
@@ -87,6 +85,13 @@ namespace Andeart.JsonButlerIde.Commands
         /// <param name="args">Event args.</param>
         private void Execute (object sender, EventArgs args)
         {
+            ThreadHelper.ThrowIfNotOnUIThread ();
+
+            // TODO: Force build solution first.
+            //Dte.ExecuteCommand("Debug.Build");
+            JsonButlerIdePackage mainPackage = _package as JsonButlerIdePackage;
+            mainPackage?.Dte.Solution.SolutionBuild.Build (true);
+
             TextSelection textSelection = GetCurrentTextElement ();
             CodeElement codeElement = EditorUtilities.GetCodeElement (textSelection);
             if (codeElement == null)
@@ -98,7 +103,9 @@ namespace Andeart.JsonButlerIde.Commands
             Type type = resolutionService.GetType (codeElement.FullName);
             string serialized = ButlerSerializer.SerializeType (type);
             Clipboard.SetText (serialized);
-            Console.WriteLine ($"JsonButler: Serialized text from {type.FullName} copied.");
+
+            AlertWindow alertWindow = new AlertWindow ();
+            alertWindow.ShowDialogWithMessage ("Serialized JSON contents copied to clipboard.");
         }
 
 
@@ -109,18 +116,25 @@ namespace Andeart.JsonButlerIde.Commands
         /// </summary>
         private TextSelection GetCurrentTextElement ()
         {
-            JsonButlerPackage mainPackage = _package as JsonButlerPackage;
+            JsonButlerIdePackage mainPackage = _package as JsonButlerIdePackage;
             return mainPackage?.Dte.ActiveDocument.Selection as TextSelection;
         }
 
         private ITypeResolutionService GetResolutionService (Project currentProject)
         {
             DynamicTypeService typeService = ServiceProvider.GetService (typeof(DynamicTypeService)) as DynamicTypeService;
-            Debug.Assert (typeService != null, "No dynamic type service registered.");
+
+            if (typeService == null)
+            {
+                throw new InvalidOperationException ("No dynamic type service registered.");
+            }
 
             IVsSolution vsSolution = (IVsSolution) ServiceProvider.GetService (typeof(IVsSolution));
             vsSolution.GetProjectOfUniqueName (currentProject.UniqueName, out IVsHierarchy vsHierarchy);
-            Debug.Assert (vsHierarchy != null, "No active hierarchy is selected.");
+            if (vsHierarchy == null)
+            {
+                throw new InvalidOperationException ("No active hierarchy is selected.");
+            }
 
             return typeService.GetTypeResolutionService (vsHierarchy);
         }
