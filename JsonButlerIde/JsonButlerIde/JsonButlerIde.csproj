@@ -54,11 +54,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\GenerateTypeCommand.cs" />
     <Compile Include="Commands\SerializeTypeCommand.cs" />
     <Compile Include="Dte\DteInitializer.cs" />
     <Compile Include="Dte\DteInitializerFactory.cs" />
+    <Compile Include="Forms\GenerateTypeWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GenerateTypeWindow.Designer.cs">
+      <DependentUpon>GenerateTypeWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="JsonButlerIdePackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\EditorUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="andeart.snk" />
@@ -71,12 +79,16 @@
     <VSCTCompile Include="Commands\JsonButlerIdePackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+    <Content Include="Commands\Resources\GenerateTypeCommand.png" />
     <Content Include="Commands\Resources\SerializeTypeCommand.png" />
     <Content Include="index.html" />
     <Content Include="Resources\JsonButlerIdePackage.ico" />
     <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="CaseConversion">
+      <HintPath>References\CaseConversion.dll</HintPath>
+    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -88,6 +100,9 @@
     </Reference>
     <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="JsonButler">
+      <HintPath>References\JsonButler.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
+using Andeart.JsonButler.CodeGeneration.Core;
 using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Utilities;
 using Microsoft.VisualStudio.Shell;
