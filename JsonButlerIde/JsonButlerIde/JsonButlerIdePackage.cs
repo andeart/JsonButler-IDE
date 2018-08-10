@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Andeart.JsonButlerIde.Commands;
 using Andeart.JsonButlerIde.Dte;
 using EnvDTE80;
 using Microsoft.VisualStudio;
@@ -37,14 +36,13 @@ namespace Andeart.JsonButlerIde
     [SuppressMessage ("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideAutoLoad (VSConstants.UICONTEXT.NoSolution_string)]
     [ProvideAutoLoad (VSConstants.UICONTEXT.SolutionExists_string)]
-    [ProvideMenuResource ("Menus.ctmenu", 1)]
-    [ProvideMenuResource ("Menus.ctmenu", 1)]
-    public sealed class JsonButlerPackage : AsyncPackage
+    [ProvideMenuResource("Menus.ctmenu", 1)]
+    public sealed class JsonButlerIdePackage : AsyncPackage
     {
         /// <summary>
-        /// JsonButlerPackage GUID string.
+        /// JsonButlerIdePackage GUID string.
         /// </summary>
-        public const string PackageGuidString = "da100736-e105-47b2-bf07-97f9d16179aa";
+        public const string PackageGuidString = "e4969f46-af48-4106-a5ce-8660e39251d1";
 
         public DTE2 Dte { get; private set; }
 
@@ -64,15 +62,14 @@ namespace Andeart.JsonButlerIde
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await JoinableTaskFactory.SwitchToMainThreadAsync (cancellationToken);
             DteInitializerFactory.Initialize (this, OnDteInitialized);
-            SerializeTypeCommand.Initialize (this);
-            CreateTypeFromJsonCommand.Initialize (this);
+            Commands.SerializeTypeCommand.Initialize(this);
+            Commands.GenerateTypeCommand.Initialize(this);
         }
 
         private void OnDteInitialized (DTE2 dte)
         {
             Dte = dte;
         }
-
         #endregion
     }
 

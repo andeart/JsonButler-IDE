@@ -10,8 +10,8 @@ namespace Andeart.JsonButlerIde.Dte
     internal class DteInitializer : IVsShellPropertyEvents
     {
         private readonly IVsShell _shellService;
-        private uint _cookie;
         private readonly Action _callback;
+        private uint _cookie;
 
         public DteInitializer (IVsShell shellService, Action callback)
         {
