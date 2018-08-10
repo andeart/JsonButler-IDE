@@ -102,7 +102,7 @@ namespace Andeart.JsonButlerIde.Commands
             Type type = resolutionService.GetType (codeElement.FullName);
             string serialized = ButlerSerializer.SerializeType (type);
             Clipboard.SetText (serialized);
-            Console.WriteLine ($"JsonButler: Serialized text from {type.FullName} copied.");
+            MessageBox.Show ("Serialized JSON contents copied to clipboard.", "JsonButler - Serialize Type", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
 
