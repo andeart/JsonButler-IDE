@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
-using Andeart.JsonButler.CodeGeneration.Core;
-using Andeart.JsonButlerIde.Dialogs;
+using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Utilities;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.TextManager.Interop;
@@ -15,17 +14,17 @@ namespace Andeart.JsonButlerIde.Commands
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class CreateTypeFromJsonCommand
+    internal sealed class GenerateTypeCommand
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 0x0101;
+        public const int CommandId = 4129;
 
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
-        public static readonly Guid CommandSet = new Guid ("4715daff-4455-4fe1-a981-6642fed9f39c");
+        public static readonly Guid CommandSet = new Guid ("21aaa842-876e-414f-9e9d-b81fb8d21749");
 
         /// <summary>
         /// VS Package that provides this command, not null.
@@ -35,7 +34,7 @@ namespace Andeart.JsonButlerIde.Commands
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static CreateTypeFromJsonCommand Instance { get; private set; }
+        public static GenerateTypeCommand Instance { get; private set; }
 
         /// <summary>
         /// Gets the service provider from the owner package.
@@ -43,16 +42,14 @@ namespace Andeart.JsonButlerIde.Commands
         private IServiceProvider ServiceProvider => _package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateTypeFromJsonCommand"/> class.
+        /// Initializes a new instance of the <see cref="GenerateTypeCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        /// <param name="commandService">Command service to add command to, not null.</param>
-        private CreateTypeFromJsonCommand (Package package)
+        private GenerateTypeCommand (Package package)
         {
             _package = package ?? throw new ArgumentNullException (nameof(package));
-            OleMenuCommandService commandService = ServiceProvider.GetService (typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService == null)
+            if (!(ServiceProvider.GetService (typeof(IMenuCommandService)) is OleMenuCommandService commandService))
             {
                 throw new ArgumentNullException (nameof(commandService));
             }
@@ -68,11 +65,11 @@ namespace Andeart.JsonButlerIde.Commands
         /// <param name="package">Owner package, not null.</param>
         public static void Initialize (Package package)
         {
-            // Verify the current thread is the UI thread - the call to AddCommand in CreateTypeFromJsonCommand's constructor requires
+            // Verify the current thread is the UI thread - the call to AddCommand in GenerateTypeCommand's constructor requires
             // the UI thread.
             ThreadHelper.ThrowIfNotOnUIThread ();
 
-            Instance = new CreateTypeFromJsonCommand (package);
+            Instance = new GenerateTypeCommand (package);
         }
 
         /// <summary>
@@ -84,11 +81,7 @@ namespace Andeart.JsonButlerIde.Commands
         /// <param name="args">Event args.</param>
         private void Execute (object sender, EventArgs args)
         {
-            // TODO: Force build solution first.
-            //Dte.ExecuteCommand("Debug.Build");
-            // JsonButlerPackage mainPackage = _package as JsonButlerPackage;
-            // mainPackage?.Dte.Solution.SolutionBuild.Build(true);
-
+            ThreadHelper.ThrowIfNotOnUIThread ();
 
             object service = ServiceProvider.GetService (typeof(SVsTextManager));
             IVsTextManager2 textManager = service as IVsTextManager2;
