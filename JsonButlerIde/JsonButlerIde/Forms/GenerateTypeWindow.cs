@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 
 
-namespace Andeart.JsonButlerIde.Dialogs
+namespace Andeart.JsonButlerIde.Forms
 {
 
     public partial class GenerateTypeWindow : Form

@@ -24,7 +24,7 @@
 
     <!--The Commands section is where commands, menus, and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
-    <Commands package="guidJsonButlerPackage">
+    <Commands package="guidJsonButlerIdePackage">
         <!-- Inside this section we have different sub-sections: one for the menus, another
     for the menu groups, one for the buttons (the actual commands), one for the combos
     and the last one for the bitmaps used. Each element is identified by a command id that
@@ -38,17 +38,10 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
         <Groups>
-            <Group guid="guidJsonButlerPackage" id="EditorContextMenuGroup" priority="0x0600" />
-            <Group guid="guidJsonButlerPackage" id="EditorContextCommandsGroup" priority="0x0600" />
+            <Group guid="guidJsonButlerIdePackageCmdSet" id="MyMenuGroup" priority="0x0600">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
+            </Group>
         </Groups>
-
-        <Menus>
-            <Menu guid="guidJsonButlerPackage" id="EditorContextMenu" type="Menu">
-                <Strings>
-                    <ButtonText>JsonButler</ButtonText>
-                </Strings>
-            </Menu>
-        </Menus>
 
         <!--Buttons section. -->
         <!--This section defines the elements the user can interact with, like a menu command or a button
@@ -61,65 +54,63 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-            <Button guid="guidJsonButlerPackageCmdSet" id="SerializeTypeCommandId" priority="0x0100" type="Button">
+            <Button guid="guidJsonButlerIdePackageCmdSet" id="SerializeTypeCommandId" priority="0x0100" type="Button">
+                <Parent guid="guidJsonButlerIdePackageCmdSet" id="MyMenuGroup" />
+                <Icon guid="guidImages" id="bmpPic1" />
                 <Strings>
-                    <ButtonText>Serialize Type to JSON</ButtonText>
+                    <ButtonText>Invoke SerializeTypeCommand</ButtonText>
                 </Strings>
             </Button>
-            <Button guid="guidJsonButlerPackageCmdSet2" id="CreateTypeFromJsonCommandId" priority="0x0100"
-                    type="Button">
+            <Button guid="guidJsonButlerIdePackageCmdSet" id="cmdidGenerateTypeCommand" priority="0x0100" type="Button">
+                <Parent guid="guidJsonButlerIdePackageCmdSet" id="MyMenuGroup" />
+                <Icon guid="guidImages1" id="bmpPic1" />
                 <Strings>
-                    <ButtonText>Create C# Type from JSON snippet</ButtonText>
+                    <ButtonText>Invoke GenerateTypeCommand</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
 
-        <!-- ~1~The bitmaps section is used to define the bitmaps that are used for the commands.@1@ -->
-        <!-- <Bitmaps> -->
-        <!--     <!- -  The bitmap id is defined in a way that is a little bit different from the others: -->
-        <!--     the declaration starts with a guid for the bitmap strip, then there is the resource id of the -->
-        <!--     bitmap strip containing the bitmaps and then there are the numeric ids of the elements used -->
-        <!--     inside a button definition. An important aspect of this declaration is that the element id -->
-        <!--     must be the actual index (1-based) of the bitmap inside the bitmap strip. - -> -->
-        <!--     <Bitmap guid="guidImages" href="Resources\SerializeTypeCommand.png" -->
-        <!--             usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" /> -->
-        <!-- </Bitmaps> -->
-
+        <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
+        <Bitmaps>
+            <!--  The bitmap id is defined in a way that is a little bit different from the others:
+            the declaration starts with a guid for the bitmap strip, then there is the resource id of the
+            bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
+            inside a button definition. An important aspect of this declaration is that the element id
+            must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
+            <Bitmap guid="guidImages" href="Resources\SerializeTypeCommand.png"
+                    usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+            <Bitmap guid="guidImages1" href="Resources\GenerateTypeCommand.png"
+                    usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+        </Bitmaps>
     </Commands>
-
-    <CommandPlacements>
-        <CommandPlacement guid="guidJsonButlerPackage" id="EditorContextMenuGroup" priority="0xFFFF">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
-        </CommandPlacement>
-        <CommandPlacement guid="guidJsonButlerPackage" id="EditorContextMenu" priority="0x0001">
-            <Parent guid="guidJsonButlerPackage" id="EditorContextMenuGroup" />
-        </CommandPlacement>
-        <CommandPlacement guid="guidJsonButlerPackage" id="EditorContextCommandsGroup" priority="0x0001">
-            <Parent guid="guidJsonButlerPackage" id="EditorContextMenu" />
-        </CommandPlacement>
-        <CommandPlacement guid="guidJsonButlerPackageCmdSet" id="SerializeTypeCommandId" priority="0x0001">
-            <Parent guid="guidJsonButlerPackage" id="EditorContextCommandsGroup" />
-        </CommandPlacement>
-        <CommandPlacement guid="guidJsonButlerPackageCmdSet2" id="CreateTypeFromJsonCommandId" priority="0x0001">
-            <Parent guid="guidJsonButlerPackage" id="EditorContextCommandsGroup" />
-        </CommandPlacement>
-    </CommandPlacements>
 
     <Symbols>
         <!-- This is the package guid. -->
-        <GuidSymbol name="guidJsonButlerPackage" value="{da100736-e105-47b2-bf07-97f9d16179aa}">
-            <IDSymbol name="EditorContextMenuGroup" value="0x1020" />
-            <IDSymbol name="EditorContextCommandsGroup" value="0x1021" />
-            <IDSymbol name="EditorContextMenu" value="0x1022" />
-        </GuidSymbol>
+        <GuidSymbol name="guidJsonButlerIdePackage" value="{e4969f46-af48-4106-a5ce-8660e39251d1}" />
 
         <!-- This is the guid used to group the menu commands together -->
-        <GuidSymbol name="guidJsonButlerPackageCmdSet" value="{dd6fa331-344e-4e45-a8e7-6c6ceb15dcd0}">
+        <GuidSymbol name="guidJsonButlerIdePackageCmdSet" value="{21aaa842-876e-414f-9e9d-b81fb8d21749}">
+            <IDSymbol name="MyMenuGroup" value="0x1020" />
             <IDSymbol name="SerializeTypeCommandId" value="0x0100" />
+            <IDSymbol value="4129" name="cmdidGenerateTypeCommand" />
         </GuidSymbol>
 
-        <GuidSymbol name="guidJsonButlerPackageCmdSet2" value="{4715daff-4455-4fe1-a981-6642fed9f39c}">
-            <IDSymbol name="CreateTypeFromJsonCommandId" value="0x0101" />
+        <GuidSymbol name="guidImages" value="{534e6bd6-cb0d-4a9b-80ad-fdf3f7b31964}">
+            <IDSymbol name="bmpPic1" value="1" />
+            <IDSymbol name="bmpPic2" value="2" />
+            <IDSymbol name="bmpPicSearch" value="3" />
+            <IDSymbol name="bmpPicX" value="4" />
+            <IDSymbol name="bmpPicArrows" value="5" />
+            <IDSymbol name="bmpPicStrikethrough" value="6" />
+        </GuidSymbol>
+
+        <GuidSymbol value="{d55d6e64-4f70-4219-b7c7-5c01410d2b96}" name="guidImages1">
+            <IDSymbol name="bmpPic1" value="1" />
+            <IDSymbol name="bmpPic2" value="2" />
+            <IDSymbol name="bmpPicSearch" value="3" />
+            <IDSymbol name="bmpPicX" value="4" />
+            <IDSymbol name="bmpPicArrows" value="5" />
+            <IDSymbol name="bmpPicStrikethrough" value="6" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>
