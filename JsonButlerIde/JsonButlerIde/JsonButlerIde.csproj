@@ -54,6 +54,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\ConvertCamelCaseCommand.cs" />
+    <Compile Include="Commands\ConvertLowerSnakeCaseCommand.cs" />
+    <Compile Include="Commands\ConvertPascalCaseCommand.cs" />
+    <Compile Include="Commands\ConvertUnderscoreCamelCaseCommand.cs" />
     <Compile Include="Commands\GenerateTypeCommand.cs" />
     <Compile Include="Commands\SerializeTypeCommand.cs" />
     <Compile Include="Dte\DteInitializer.cs" />
@@ -90,9 +94,9 @@
   <ItemGroup>
     <VSCTCompile Include="Commands\JsonButlerIdePackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
     </VSCTCompile>
-    <Content Include="Commands\Resources\GenerateTypeCommand.png" />
-    <Content Include="Commands\Resources\SerializeTypeCommand.png" />
+    <Content Include="Commands\Resources\Icon.png" />
     <Content Include="index.html" />
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
