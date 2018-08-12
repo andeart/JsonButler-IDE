@@ -6,9 +6,9 @@ using System.Windows.Forms;
 namespace Andeart.JsonButlerIde.Forms
 {
 
-    public partial class AlertWindow : Form
+    public partial class ConfirmationWindow : Form
     {
-        public AlertWindow ()
+        public ConfirmationWindow ()
         {
             InitializeComponent ();
         }
@@ -19,10 +19,16 @@ namespace Andeart.JsonButlerIde.Forms
             Close ();
         }
 
-        public void ShowDialogWithMessage (string message)
+        private void ButtonCancel_Click (object sender, EventArgs args)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close ();
+        }
+
+        public DialogResult ShowDialogWithMessage (string message)
         {
             labelMessage.Text = message;
-            ShowDialog ();
+            return ShowDialog ();
         }
     }
 
