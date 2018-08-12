@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GenerateTypeWindow));
             this.labelNamespace = new System.Windows.Forms.Label();
             this.textNamespace = new System.Windows.Forms.TextBox();
             this.buttonGenerate = new System.Windows.Forms.Button();
@@ -96,12 +97,14 @@
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.textNamespace);
             this.Controls.Add(this.labelNamespace);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GenerateTypeWindow";
             this.Text = "JsonButler - Generate Type";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
