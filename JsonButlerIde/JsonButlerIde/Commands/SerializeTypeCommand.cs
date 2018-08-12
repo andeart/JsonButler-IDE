@@ -5,6 +5,7 @@ using Andeart.JsonButler.CodeSerialization;
 using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Utilities;
 using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Design;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -43,6 +44,8 @@ namespace Andeart.JsonButlerIde.Commands
         /// Gets the service provider from the owner package.
         /// </summary>
         private IServiceProvider ServiceProvider => _package;
+
+        private DTE2 PackageDte => (_package as JsonButlerIdePackage)?.Dte;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializeTypeCommand"/> class.
@@ -87,15 +90,23 @@ namespace Andeart.JsonButlerIde.Commands
         {
             ThreadHelper.ThrowIfNotOnUIThread ();
 
-            // TODO: Force build solution first.
-            //Dte.ExecuteCommand("Debug.Build");
-            JsonButlerIdePackage mainPackage = _package as JsonButlerIdePackage;
-            mainPackage?.Dte.Solution.SolutionBuild.Build (true);
+            ConfirmationWindow confirmationWindow = new ConfirmationWindow ();
+            DialogResult buildConfirmation = confirmationWindow.ShowDialogWithMessage ("JsonButler needs to build solution to identify this type.\nProceed?");
 
-            TextSelection textSelection = GetCurrentTextElement ();
+            if (buildConfirmation != DialogResult.OK)
+            {
+                return;
+            }
+
+            PackageDte?.Solution.SolutionBuild.Build (true);
+
+            TextSelection textSelection = PackageDte?.ActiveDocument.Selection as TextSelection;
             CodeElement codeElement = EditorUtilities.GetCodeElement (textSelection);
+            AlertWindow alertWindow;
             if (codeElement == null)
             {
+                alertWindow = new AlertWindow ();
+                alertWindow.ShowDialogWithMessage ("Invalid code element selected for serialization.");
                 return;
             }
 
@@ -104,21 +115,12 @@ namespace Andeart.JsonButlerIde.Commands
             string serialized = ButlerSerializer.SerializeType (type);
             Clipboard.SetText (serialized);
 
-            AlertWindow alertWindow = new AlertWindow ();
+            alertWindow = new AlertWindow ();
             alertWindow.ShowDialogWithMessage ("Serialized JSON contents copied to clipboard.");
         }
 
 
         #region UTILS
-
-        /// <summary>
-        /// Returns the text-selection under the text-caret, or where the right-click context menu was invoked.
-        /// </summary>
-        private TextSelection GetCurrentTextElement ()
-        {
-            JsonButlerIdePackage mainPackage = _package as JsonButlerIdePackage;
-            return mainPackage?.Dte.ActiveDocument.Selection as TextSelection;
-        }
 
         private ITypeResolutionService GetResolutionService (Project currentProject)
         {

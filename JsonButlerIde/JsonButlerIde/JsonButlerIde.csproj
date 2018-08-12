@@ -64,6 +64,12 @@
     <Compile Include="Forms\AlertWindow.Designer.cs">
       <DependentUpon>AlertWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ConfirmationWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfirmationWindow.Designer.cs">
+      <DependentUpon>ConfirmationWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\GenerateTypeWindow.cs" />
     <Compile Include="Forms\GenerateTypeWindow.Designer.cs">
       <DependentUpon>GenerateTypeWindow.cs</DependentUpon>
@@ -190,6 +196,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\AlertWindow.resx">
       <DependentUpon>AlertWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfirmationWindow.resx">
+      <DependentUpon>ConfirmationWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>

@@ -17,7 +17,7 @@ namespace Andeart.JsonButlerIde.Forms
             InitializeComponent ();
         }
 
-        private void ButtonGenerate_Click (object sender, EventArgs e)
+        private void ButtonGenerate_Click (object sender, EventArgs args)
         {
             TypeNamespace = textNamespace.Text;
             TypeName = textName.Text;
@@ -25,13 +25,13 @@ namespace Andeart.JsonButlerIde.Forms
             Close ();
         }
 
-        private void TextNamespace_GotFocus (object sender, EventArgs e)
+        private void TextNamespace_GotFocus (object sender, EventArgs args)
         {
             textNamespace.Text = string.Empty;
             textNamespace.ForeColor = SystemColors.WindowText;
         }
 
-        private void TextName_GotFocus (object sender, EventArgs e)
+        private void TextName_GotFocus (object sender, EventArgs args)
         {
             textName.Text = string.Empty;
             textName.ForeColor = SystemColors.WindowText;
