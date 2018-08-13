@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Andeart.JsonButlerIde.Commands;
 using Andeart.JsonButlerIde.Dte;
 using EnvDTE80;
 using Microsoft.VisualStudio;
@@ -36,7 +37,7 @@ namespace Andeart.JsonButlerIde
     [SuppressMessage ("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideAutoLoad (VSConstants.UICONTEXT.NoSolution_string)]
     [ProvideAutoLoad (VSConstants.UICONTEXT.SolutionExists_string)]
-    [ProvideMenuResource("Menus.ctmenu", 1)]
+    [ProvideMenuResource ("Menus.ctmenu", 1)]
     public sealed class JsonButlerIdePackage : AsyncPackage
     {
         /// <summary>
@@ -62,14 +63,21 @@ namespace Andeart.JsonButlerIde
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await JoinableTaskFactory.SwitchToMainThreadAsync (cancellationToken);
             DteInitializerFactory.Initialize (this, OnDteInitialized);
-            Commands.SerializeTypeCommand.Initialize(this);
-            Commands.GenerateTypeCommand.Initialize(this);
+
+            SerializeTypeCommand.Initialize (this);
+            GenerateTypeCommand.Initialize (this);
+
+            ConvertCamelCaseCommand.Initialize (this);
+            ConvertLowerSnakeCaseCommand.Initialize (this);
+            ConvertPascalCaseCommand.Initialize (this);
+            ConvertUnderscoreCamelCaseCommand.Initialize (this);
         }
 
         private void OnDteInitialized (DTE2 dte)
         {
             Dte = dte;
         }
+
         #endregion
     }
 

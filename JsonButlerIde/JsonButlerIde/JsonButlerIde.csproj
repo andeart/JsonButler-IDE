@@ -54,6 +54,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\ConvertCamelCaseCommand.cs" />
+    <Compile Include="Commands\ConvertLowerSnakeCaseCommand.cs" />
+    <Compile Include="Commands\ConvertPascalCaseCommand.cs" />
+    <Compile Include="Commands\ConvertUnderscoreCamelCaseCommand.cs" />
     <Compile Include="Commands\GenerateTypeCommand.cs" />
     <Compile Include="Commands\SerializeTypeCommand.cs" />
     <Compile Include="Dte\DteInitializer.cs" />
@@ -70,7 +74,9 @@
     <Compile Include="Forms\ConfirmationWindow.Designer.cs">
       <DependentUpon>ConfirmationWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GenerateTypeWindow.cs" />
+    <Compile Include="Forms\GenerateTypeWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\GenerateTypeWindow.Designer.cs">
       <DependentUpon>GenerateTypeWindow.cs</DependentUpon>
     </Compile>
@@ -88,11 +94,22 @@
   <ItemGroup>
     <VSCTCompile Include="Commands\JsonButlerIdePackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
     </VSCTCompile>
-    <Content Include="Commands\Resources\GenerateTypeCommand.png" />
-    <Content Include="Commands\Resources\SerializeTypeCommand.png" />
+    <Content Include="Commands\Resources\Icon.png" />
     <Content Include="index.html" />
-    <Content Include="Resources\JsonButlerIdePackage.ico" />
+    <Content Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\LogoPreview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\Logo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ConfirmationWindow.resx">
       <DependentUpon>ConfirmationWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GenerateTypeWindow.resx">
+      <DependentUpon>GenerateTypeWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
