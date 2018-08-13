@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlertWindow));
             this.labelMessage = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -37,9 +38,9 @@
             this.labelMessage.AutoSize = true;
             this.labelMessage.Location = new System.Drawing.Point(24, 24);
             this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(66, 13);
+            this.labelMessage.Size = new System.Drawing.Size(54, 13);
             this.labelMessage.TabIndex = 0;
-            this.labelMessage.Text = "Lorem ipusm";
+            this.labelMessage.Text = "Loading...";
             // 
             // buttonOk
             // 
@@ -59,6 +60,7 @@
             this.ClientSize = new System.Drawing.Size(464, 141);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.labelMessage);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AlertWindow";

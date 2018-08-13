@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
-using Andeart.JsonButler.CodeGeneration.Core;
+using Andeart.CaseConversion;
 using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Utilities;
 using Microsoft.VisualStudio.Shell;
@@ -15,12 +15,12 @@ namespace Andeart.JsonButlerIde.Commands
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class GenerateTypeCommand
+    internal sealed class ConvertPascalCaseCommand
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 4129;
+        public const int CommandId = 4132;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -35,7 +35,7 @@ namespace Andeart.JsonButlerIde.Commands
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static GenerateTypeCommand Instance { get; private set; }
+        public static ConvertPascalCaseCommand Instance { get; private set; }
 
         /// <summary>
         /// Gets the service provider from the owner package.
@@ -43,11 +43,11 @@ namespace Andeart.JsonButlerIde.Commands
         private IServiceProvider ServiceProvider => _package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GenerateTypeCommand"/> class.
+        /// Initializes a new instance of the <see cref="ConvertPascalCaseCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        private GenerateTypeCommand (Package package)
+        private ConvertPascalCaseCommand (Package package)
         {
             _package = package ?? throw new ArgumentNullException (nameof(package));
             if (!(ServiceProvider.GetService (typeof(IMenuCommandService)) is OleMenuCommandService commandService))
@@ -66,11 +66,11 @@ namespace Andeart.JsonButlerIde.Commands
         /// <param name="package">Owner package, not null.</param>
         public static void Initialize (Package package)
         {
-            // Verify the current thread is the UI thread - the call to AddCommand in GenerateTypeCommand's constructor requires
+            // Verify the current thread is the UI thread - the call to AddCommand in ConvertPascalCaseCommand's constructor requires
             // the UI thread.
             ThreadHelper.ThrowIfNotOnUIThread ();
 
-            Instance = new GenerateTypeCommand (package);
+            Instance = new ConvertPascalCaseCommand (package);
         }
 
         /// <summary>
@@ -88,23 +88,10 @@ namespace Andeart.JsonButlerIde.Commands
             IVsTextManager2 textManager = service as IVsTextManager2;
             string highlightedText = EditorUtilities.GetHighlightedText (textManager);
 
-            GenerateTypeWindow generateTypeWindow = new GenerateTypeWindow ();
-            DialogResult result = generateTypeWindow.ShowDialog ();
-
-            if (result != DialogResult.OK)
-            {
-                return;
-            }
-
-            ButlerCode bCode = ButlerCodeFactory.Create ();
-            bCode.Namespace = generateTypeWindow.TypeNamespace;
-            bCode.ClassName = generateTypeWindow.TypeName;
-            bCode.SourceJson = highlightedText;
-
-            string generated = bCode.Generate ();
-            Clipboard.SetText (generated);
+            string convertedText = highlightedText.ToPascalCase ();
+            Clipboard.SetText (convertedText);
             AlertWindow alertWindow = new AlertWindow ();
-            alertWindow.ShowDialogWithMessage ("Generated code contents copied to clipboard.");
+            alertWindow.ShowDialogWithMessage ("Converted text copied to clipboard.");
         }
     }
 
