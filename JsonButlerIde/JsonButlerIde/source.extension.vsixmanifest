@@ -8,6 +8,7 @@
         <License>LICENSE.txt</License>
         <Icon>Logo.ico</Icon>
         <PreviewImage>LogoPreview.png</PreviewImage>
+        <Tags>code, generation, csharp, dotnet, json, case, conversion, camel, pascal, snake, underscore</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0, 16.0)" />
