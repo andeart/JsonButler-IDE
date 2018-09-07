@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Andeart.JsonButlerIde.Commands;
 using Andeart.JsonButlerIde.Dte;
+using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Options;
 using EnvDTE80;
 using Microsoft.VisualStudio;
@@ -49,11 +50,9 @@ namespace Andeart.JsonButlerIde
         public const string PackageGuidString = "e4969f46-af48-4106-a5ce-8660e39251d1";
 
         private OptionPageGeneral _optionPage;
-
-        internal bool ShouldShowConfirmationAlerts => _optionPage.ShouldShowConfirmationAlerts;
+        private IVsStatusbar _statusBar;
 
         internal PropertySerializationType SerializationType => _optionPage.SerializationType;
-
         internal DTE2 Dte { get; private set; }
 
 
@@ -87,6 +86,19 @@ namespace Andeart.JsonButlerIde
         private void OnDteInitialized (DTE2 dte)
         {
             Dte = dte;
+        }
+
+        public void DoAlert (string alertMessage)
+        {
+            _statusBar = _statusBar ?? (_statusBar = GetService (typeof(SVsStatusbar)) as IVsStatusbar);
+            _statusBar.IsFrozen (out int frozen);
+            if (frozen == 0)
+            {
+                _statusBar.SetText ($"JsonButler: {alertMessage}");
+            }
+
+            AlertWindow alertWindow = new AlertWindow ();
+            alertWindow.ShowDialogWithMessage (alertMessage);
         }
 
         #endregion

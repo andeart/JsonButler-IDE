@@ -30,7 +30,7 @@ namespace Andeart.JsonButlerIde.Commands
         /// <summary>
         /// VS Package that provides this command, not null.
         /// </summary>
-        private readonly Package _package;
+        private readonly JsonButlerIdePackage _package;
 
         /// <summary>
         /// Gets the instance of the command.
@@ -47,7 +47,7 @@ namespace Andeart.JsonButlerIde.Commands
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        private GenerateTypeCommand (Package package)
+        private GenerateTypeCommand (JsonButlerIdePackage package)
         {
             _package = package ?? throw new ArgumentNullException (nameof(package));
             if (!(ServiceProvider.GetService (typeof(IMenuCommandService)) is OleMenuCommandService commandService))
@@ -64,7 +64,7 @@ namespace Andeart.JsonButlerIde.Commands
         /// Initializes the singleton instance of the command.
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        public static void Initialize (Package package)
+        public static void Initialize (JsonButlerIdePackage package)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in GenerateTypeCommand's constructor requires
             // the UI thread.
@@ -103,8 +103,8 @@ namespace Andeart.JsonButlerIde.Commands
 
             string generated = bCode.Generate ();
             Clipboard.SetText (generated);
-            AlertWindow alertWindow = new AlertWindow ();
-            alertWindow.ShowDialogWithMessage ("Generated code contents copied to clipboard.");
+
+            _package.DoAlert ("Generated code contents copied to clipboard.");
         }
     }
 
