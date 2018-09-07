@@ -4,9 +4,11 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Andeart.JsonButlerIde.Commands;
 using Andeart.JsonButlerIde.Dte;
+using Andeart.JsonButlerIde.Options;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
 
@@ -38,6 +40,7 @@ namespace Andeart.JsonButlerIde
     [ProvideAutoLoad (VSConstants.UICONTEXT.NoSolution_string)]
     [ProvideAutoLoad (VSConstants.UICONTEXT.SolutionExists_string)]
     [ProvideMenuResource ("Menus.ctmenu", 1)]
+    [ProvideOptionPage (typeof(OptionPageGeneral), "JsonButler", "General", 0, 0, true)]
     public sealed class JsonButlerIdePackage : AsyncPackage
     {
         /// <summary>
@@ -45,7 +48,13 @@ namespace Andeart.JsonButlerIde
         /// </summary>
         public const string PackageGuidString = "e4969f46-af48-4106-a5ce-8660e39251d1";
 
-        public DTE2 Dte { get; private set; }
+        private OptionPageGeneral _optionPage;
+
+        internal bool ShouldShowConfirmationAlerts => _optionPage.ShouldShowConfirmationAlerts;
+
+        internal PropertySerializationType SerializationType => _optionPage.SerializationType;
+
+        internal DTE2 Dte { get; private set; }
 
 
         #region Package Members
@@ -63,6 +72,8 @@ namespace Andeart.JsonButlerIde
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await JoinableTaskFactory.SwitchToMainThreadAsync (cancellationToken);
             DteInitializerFactory.Initialize (this, OnDteInitialized);
+
+            _optionPage = (OptionPageGeneral) GetDialogPage (typeof(OptionPageGeneral));
 
             SerializeTypeCommand.Initialize (this);
             GenerateTypeCommand.Initialize (this);
