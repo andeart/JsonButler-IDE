@@ -114,7 +114,7 @@ namespace Andeart.JsonButlerIde.Commands
             ButlerSerializerSettings serializerSettings = new ButlerSerializerSettings (type.Assembly);
 
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings ();
-            JsonButlerSerializerContractResolver contractResolver = new JsonButlerSerializerContractResolver ();
+            SerializerContractResolver contractResolver = new SerializerContractResolver ();
             contractResolver.SerializationType = _package.SerializationType;
             jsonSerializerSettings.ContractResolver = contractResolver;
             jsonSerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

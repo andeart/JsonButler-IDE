@@ -5,7 +5,7 @@
 namespace Andeart.JsonButlerIde.Utilities
 {
 
-    internal class TwoWayDictionary<TKey, TValue>
+    internal sealed class TwoWayDictionary<TKey, TValue>
     {
         private readonly Dictionary<TKey, TValue> _forward;
         private readonly Dictionary<TValue, TKey> _backward;
