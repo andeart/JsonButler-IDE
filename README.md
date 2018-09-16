@@ -65,10 +65,54 @@ namespace Andeart.CustomPayloads
 }
 ```
 
+## Serialize C# types to JSON text, from within Visual Studio
 
+Convert your C# payload types into JSON, using default values as needed.<br/>
+For example: <br/>
+```csharp
+public class HandleMaterial
+{
+    public int MaterialName { get; }
+
+    public HandleMaterial (int materialName)
+    {
+        MaterialName = materialName;
+    }
+}
+
+
+public class HandleData
+{
+    public float Strength { get; }
+
+    public HandleMaterial Material { get; }
+
+    [JsonIgnore]
+    public Handle Handle { get; private set; }
+
+    public HandleData (float strength, HandleMaterial material)
+    {
+        Strength = strength;
+        Material = material;
+    }
+}
+```
+<br/>
+can be converted via the right-click context menu, <br/>
+![serialize-csharp][jb-1-serializecsharp] <br/>
+to generate automatically this JSON snippet: <br/>
+```json
+{
+  "strength": 0.0,
+  "material": {
+    "material_name": 0
+  }
+}
+```
 
 
 
 [jsonbutler library]: https://github.com/andeart/JsonButler "JsonButler"
 [jsonbutlervs icon]: https://user-images.githubusercontent.com/6226493/44009167-a0dc8714-9e5e-11e8-93c9-802549e5187a.png "JsonButler"
 [jb-0-jsonsource]: https://user-images.githubusercontent.com/6226493/45602176-51b4b900-b9ce-11e8-8607-54146b1dad3d.png
+[jb-1-serializecsharp]: https://user-images.githubusercontent.com/6226493/45602343-5fb80900-b9d1-11e8-8add-733090a38b93.png
