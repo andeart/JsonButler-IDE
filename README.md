@@ -10,7 +10,7 @@
 ## Generate C# types from JSON snippets/files.
 Convert your JSON snippets easily into C# types usable in code.<br/>
 For example:<br/>
-![json-source][jb-0-jsonsource]
+![json-source][jb-0-jsonsource]<br/>
 automatically generates:
 ```csharp
 namespace Andeart.CustomPayloads
