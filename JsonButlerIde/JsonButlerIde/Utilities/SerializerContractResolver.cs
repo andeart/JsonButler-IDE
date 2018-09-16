@@ -8,7 +8,7 @@ using Newtonsoft.Json.Serialization;
 namespace Andeart.JsonButlerIde.Utilities
 {
 
-    internal class JsonButlerSerializerContractResolver : DefaultContractResolver
+    internal class SerializerContractResolver : DefaultContractResolver
     {
         public PropertySerializationType SerializationType { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="JsonButlerIde.74be87e6-f282-43d8-b8a6-cea1d2376938" Version="0.10.1.0" Language="en-US" Publisher="Anurag Devanapally" />
+        <Identity Id="JsonButlerIde.74be87e6-f282-43d8-b8a6-cea1d2376938" Version="0.11.1.0" Language="en-US" Publisher="Anurag Devanapally" />
         <DisplayName>JsonButlerIde</DisplayName>
         <Description xml:space="preserve">JsonButler adds several JSON-conversion features within the IDE. Generate C# types from JSON data, serialize C# types to JSON without instantiating objects, easily change cases of phrases, and so on. More features coming soon- stay updated!</Description>
         <MoreInfo>https://github.com/andeart/JsonButler-IDE</MoreInfo>

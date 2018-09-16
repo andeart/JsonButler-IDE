@@ -91,10 +91,13 @@ namespace Andeart.JsonButlerIde
         public void DoAlert (string alertMessage)
         {
             _statusBar = _statusBar ?? (_statusBar = GetService (typeof(SVsStatusbar)) as IVsStatusbar);
-            _statusBar.IsFrozen (out int frozen);
-            if (frozen == 0)
+            if (_statusBar != null)
             {
-                _statusBar.SetText ($"JsonButler: {alertMessage}");
+                _statusBar.IsFrozen (out int frozen);
+                if (frozen == 0)
+                {
+                    _statusBar.SetText ($"JsonButler: {alertMessage}");
+                }
             }
 
             AlertWindow alertWindow = new AlertWindow ();

@@ -94,7 +94,7 @@
     <Compile Include="Options\PropertySerializationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\EditorUtilities.cs" />
-    <Compile Include="Utilities\JsonButlerSerializerContractResolver.cs" />
+    <Compile Include="Utilities\SerializerContractResolver.cs" />
     <Compile Include="Utilities\TwoWayDictionary.cs" />
     <Compile Include="VSPackage.Designer.cs">
       <AutoGen>True</AutoGen>
