@@ -2,7 +2,6 @@
 using System.ComponentModel.Design;
 using System.Windows.Forms;
 using Andeart.CaseConversion;
-using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Utilities;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.TextManager.Interop;

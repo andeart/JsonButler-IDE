@@ -111,7 +111,7 @@ namespace Andeart.JsonButlerIde.Commands
             ITypeResolutionService resolutionService = GetResolutionService (codeElement.ProjectItem.ContainingProject);
             Type type = resolutionService.GetType (codeElement.FullName);
 
-            ButlerSerializerSettings serializerSettings = new ButlerSerializerSettings (type.Assembly);
+            ButlerSerializerSettings serializerSettings = new ButlerSerializerSettings (type?.Assembly);
 
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings ();
             SerializerContractResolver contractResolver = new SerializerContractResolver ();
