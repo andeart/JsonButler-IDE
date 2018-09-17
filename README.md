@@ -97,10 +97,9 @@ public class HandleData
     }
 }
 ```
-<br/>
-can be converted via the right-click context menu, <br/>
-![serialize-csharp][jb-1-serializecsharp] <br/>
-to generate automatically this JSON snippet: <br/>
+can be converted via the right-click context menu,
+![ser-cs][jb-1-sercs]
+to generate automatically this JSON snippet:
 ```json
 {
   "strength": 0.0,
@@ -114,5 +113,5 @@ to generate automatically this JSON snippet: <br/>
 
 [jsonbutler library]: https://github.com/andeart/JsonButler "JsonButler"
 [jsonbutlervs icon]: https://user-images.githubusercontent.com/6226493/44009167-a0dc8714-9e5e-11e8-93c9-802549e5187a.png "JsonButler"
-[jb-0-jsonsource]: https://user-images.githubusercontent.com/6226493/45602176-51b4b900-b9ce-11e8-8607-54146b1dad3d.png
-[jb-1-serializecsharp]: https://user-images.githubusercontent.com/6226493/45602343-5fb80900-b9d1-11e8-8add-733090a38b93.png
+[jb-0-jsonsource]: https://user-images.githubusercontent.com/6226493/45602176-51b4b900-b9ce-11e8-8607-54146b1dad3d.png "JsonButler"
+[jb-1-sercs]: https://user-images.githubusercontent.com/6226493/45602343-5fb80900-b9d1-11e8-8add-733090a38b93.png "JsonButler"
