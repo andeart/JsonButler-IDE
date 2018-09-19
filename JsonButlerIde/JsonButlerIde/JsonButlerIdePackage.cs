@@ -100,8 +100,11 @@ namespace Andeart.JsonButlerIde
                 }
             }
 
-            AlertWindow alertWindow = new AlertWindow ();
-            alertWindow.ShowDialogWithMessage (alertMessage);
+            if (_optionPage.ShouldShowConfirmationAlerts)
+            {
+                AlertWindow alertWindow = new AlertWindow ();
+                alertWindow.ShowDialogWithMessage (alertMessage);
+            }
         }
 
         #endregion
