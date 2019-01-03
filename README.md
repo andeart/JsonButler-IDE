@@ -99,7 +99,7 @@ public class HandleData
 ```
 can be converted via the right-click context menu,
 ![ser-cs][jb-1-sercs]
-to generate automatically this JSON snippet:
+to automatically generate this JSON snippet:
 ```json
 {
   "strength": 0.0,
