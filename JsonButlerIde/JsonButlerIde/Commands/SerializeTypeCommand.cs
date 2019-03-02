@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Windows.Forms;
-using Andeart.JsonButler.CodeSerialization;
+﻿using Andeart.JsonButler.CodeSerialization;
 using Andeart.JsonButlerIde.Forms;
 using Andeart.JsonButlerIde.Utilities;
 using EnvDTE;
@@ -9,7 +6,9 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Design;
 using Microsoft.VisualStudio.Shell.Interop;
 using Newtonsoft.Json;
-
+using System;
+using System.ComponentModel.Design;
+using System.Windows.Forms;
 
 
 namespace Andeart.JsonButlerIde.Commands
