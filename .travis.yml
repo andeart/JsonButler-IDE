@@ -2,12 +2,12 @@ os: osx
 language: csharp
 solution: ./JsonButlerIde/JsonButlerIde.sln
 dotnet: 2.2.104
-python: 3.7
 mono: latest
 before_install:
   - chmod a+x ./Scripts/*
 install:
+  - pip install -r requirements.txt
   - nuget restore ./JsonButlerIde/JsonButlerIde.sln
 script:
   - msbuild /p:Configuration=Debug ./JsonButlerIde/JsonButlerIde.sln
-  - python ./Scripts/test.py
+  - python ./Scripts/test.py ./JsonButlerIde/JsonButlerIde/bin/Debug/JsonButlerIde.vsix
