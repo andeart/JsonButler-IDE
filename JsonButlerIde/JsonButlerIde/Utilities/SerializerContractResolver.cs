@@ -1,5 +1,5 @@
 ﻿using System;
-using Andeart.CaseConversion;
+using Andeart.CaseConversions;
 using Andeart.JsonButlerIde.Options;
 using Newtonsoft.Json.Serialization;
 
