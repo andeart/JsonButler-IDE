@@ -112,10 +112,11 @@ to automatically generate this JSON snippet:
 ```
 
 ## Installation and Usage
-Download [the latest release](https://github.com/andeart/JsonButler-IDE/releases/latest) from the Github Releases tab.<br />
-Install the extension by double-clicking the `.vsix` file. This should open up a dialog box that lets you choose which Visual Studio version you want to install this to.
+Download the `JsonButlerIde.vsix` file from [the Github releases page](https://github.com/andeart/JsonButler-IDE/releases/latest).<br />
+Install the Visual Studio extension by running the `.vsix` file.<br />
+This may also open up a dialog box that lets you choose which Visual Studio version you want to install this extension into.
 
-Coming soon, maybe: A direct download from the Visual Studio Marketplace. 
+Coming soon (maybe): A direct download from the Visual Studio Marketplace. 
 
 ## Feedback and Contribution
 Please feel free to send in a Pull Request, or drop me an email. Cheers!
