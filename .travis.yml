@@ -13,8 +13,7 @@ env:
     - CONFIG_NAME=Release
     - CONFIG_NAME=Debug
 before_install:
-  - export PYTHONPATH=$LULLAPY_ROOT:$PYTHONPATH
-  - chmod -R a+x $LULLAPY_ROOT
+  - pip3 install -e $LULLAPY_ROOT
 script:
   - python3 -m andeart.lullapy.netrestore -s "$TRAVIS_SOLUTION"
   - python3 -m andeart.lullapy.netbuild -s "$TRAVIS_SOLUTION" -c "$CONFIG_NAME"
