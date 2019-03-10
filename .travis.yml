@@ -15,8 +15,6 @@ env:
 before_install:
   - export PYTHONPATH=$LULLAPY_ROOT:$PYTHONPATH
   - chmod -R a+x $LULLAPY_ROOT
-install:
-  - pip3 install -r requirements.txt
 script:
   - python3 -m andeart.lullapy.netrestore -s "$TRAVIS_SOLUTION"
   - python3 -m andeart.lullapy.netbuild -s "$TRAVIS_SOLUTION" -c "$CONFIG_NAME"
