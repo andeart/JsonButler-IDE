@@ -1,6 +1,6 @@
 # [![logo-v2-64-vs][jsonbutlervs icon]](#) JsonButler-IDE
 
-[![github-release](https://img.shields.io/github/release/andeart/JsonButler-IDE.svg)](https://github.com/andeart/JsonButler-IDE/releases/latest)<br/>
+[![github-release](https://img.shields.io/github/release/andeart/JsonButler-IDE.svg)](https://github.com/andeart/JsonButler-IDE/releases/latest) [![github-dls](https://img.shields.io/github/downloads/andeart/JsonButler-IDE/total.svg)](https://github.com/andeart/JsonButler-IDE/releases/latest)<br/>
 
 `JsonButler-IDE` lets you use [JsonButler][jsonbutler library]'s features inside your Visual Studio environment, along with some additional features.
 
